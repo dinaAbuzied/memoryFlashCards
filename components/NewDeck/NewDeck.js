@@ -1,54 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, TextInput, View, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
-import { white, red, green, blue } from '../../utils/colors';
+import { Text, TextInput, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import styles from './NewDeckStyle';
 import { handleAddDeck } from '../../actions/index';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: white,
-    alignItems: 'stretch',
-    justifyContent: 'center',
-    padding: 20
-  },
-  title: {
-    color: blue,
-    fontSize: 24,
-    fontWeight: '900',
-    textAlign: 'center'
-  },
-  input: {
-    padding: 15,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: blue,
-    color: blue,
-    marginLeft: 25,
-    marginRight: 25,
-    marginTop: 45,
-    marginBottom: 45,
-    fontSize: 18
-  },
-  submit: {
-    justifyContent: 'center',
-    backgroundColor: green,
-    height: 56,
-    color: white,
-    borderRadius: 10,
-    marginLeft: 25,
-    marginRight: 25
-  },
-  submitTitle: {
-    color: white,
-    fontSize: 24,
-    fontWeight: '900',
-    textAlign: 'center'
-  },
-  titleDisabled: {
-    opacity: 0.5
-  }
-});
+
 
 class NewDeck extends Component {
   state = {
@@ -60,8 +16,11 @@ class NewDeck extends Component {
     })
   }
   onSubmit() {
-    const { dispatch } = this.props;
-    dispatch(handleAddDeck(this.state.deckTitle));
+    const { dispatch, navigation } = this.props;
+    const { deckTitle } = this.state;
+    dispatch(handleAddDeck(deckTitle)).then((deck) => {
+      navigation.navigate('IndividualDeck', { deck })
+    });
   }
   render() {
     const { deckTitle } = this.state;

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import styles from './DecksStyle';
 
-function Decks ({ decks }) {
+function Decks ({ decks, navigation }) {
         const decksArr = Object.values(decks);
         if (decksArr.length <= 0) {
             return (
@@ -17,7 +17,7 @@ function Decks ({ decks }) {
             <ScrollView style={styles.container}>
                 {
                     decksArr.map((deck) => (
-                        <TouchableOpacity onPress={() => console.log('pressed')} key={deck.id} style={styles.deck} >
+                        <TouchableOpacity onPress={() => navigation.navigate('IndividualDeck', { deck })} key={deck.id} style={styles.deck} >
                             <Text style={styles.title}>{deck.title}</Text>
                             <Text style={styles.cardsNum}>{deck.cards.length} Cards</Text>
                         </TouchableOpacity>
