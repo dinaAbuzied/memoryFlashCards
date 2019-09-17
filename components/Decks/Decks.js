@@ -1,48 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
-import { white, green, blue } from '../../utils/colors';
+import { Text, View, TouchableOpacity, ScrollView } from 'react-native';
+import styles from './DecksStyle';
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: white,
-        padding: 20
-    },
-    emptyContainer: {
-        justifyContent: 'center'
-    },
-    deck: {
-        backgroundColor: green,
-        height: 200,
-        borderRadius: 10,
-        padding: 20,
-        justifyContent: 'space-around',
-        marginBottom: 20
-    },
-    title: {
-        color: white,
-        fontSize: 22,
-        fontWeight: '900',
-        textAlign: 'center'
-    },
-    cardsNum: {
-        color: white,
-        textAlign: 'right',
-        fontWeight: '900',
-        fontSize: 16
-    },
-    emptyDecks: {
-        color: blue,
-        fontSize: 22,
-        fontWeight: '900',
-        textAlign: 'center'
-    }
-});
-
-class Decks extends Component {
-    render() {
-        const { decks } = this.props;
+function Decks ({ decks }) {
         const decksArr = Object.values(decks);
         if (decksArr.length <= 0) {
             return (
@@ -64,7 +25,6 @@ class Decks extends Component {
                 }
             </ScrollView>
         );
-    }
 }
 
 const mapStateToProps = ({ decks }) => {
