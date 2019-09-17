@@ -5,6 +5,7 @@ import { View, StatusBar} from 'react-native';
 import MainNav from './MainNav';
 import Constants from 'expo-constants';
 import { blue } from '../utils/colors';
+import { AppLoading } from 'expo';
 
 function CardsStatusBar ({backgroundColor, ...props}) {
   return (
@@ -15,11 +16,19 @@ function CardsStatusBar ({backgroundColor, ...props}) {
 }
 
 class FlashCards extends Component {
+  state = {
+    ready: false
+  }
   componentDidMount() {
     const { dispatch } = this.props;
-    dispatch(handleFetchingData());
+    dispatch(handleFetchingData())
+    .then(() => this.setState(() => ({ready: true})));
   }
   render() {
+    const { ready } = this.state;
+    if (ready === false) {
+      return <AppLoading />
+    }
     return (
       <View style={{flex: 1}}>
         <CardsStatusBar backgroundColor={ blue } barStyle="light-content" />
