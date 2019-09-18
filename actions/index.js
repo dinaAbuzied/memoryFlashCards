@@ -15,6 +15,7 @@ export const handleAddDeck = (title) => {
     return (dispatch) => {
         return AddDeckToStorage(title).then((deck) => {
             dispatch(addDeck(deck));
+            return deck;
         });
     }
 }
