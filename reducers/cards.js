@@ -1,4 +1,4 @@
-import { GET_CARDS, ADD_CARD, REMOVE_CARD } from "../actions/cards";
+import { GET_CARDS, ADD_CARD } from "../actions/cards";
 
 const cards = (state = {}, action) => {
     switch (action.type) {
@@ -9,10 +9,6 @@ const cards = (state = {}, action) => {
                 ...state,
                 [action.card.id]: action.card
             };
-        case REMOVE_CARD:
-            const obj = { ...state };
-            delete obj[action.card.id];
-            return { ...obj };
         default:
             return state;
     }

@@ -49,10 +49,5 @@ export function AddDeckToStorage (title) {
     const deck = {title: title, id: id, cards: []};
     return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
         [id]: deck
-      })).then((() => {
-        AsyncStorage.getItem(DECKS_STORAGE_KEY).then(result => {
-            console.log(result);
-        })
-        return deck;
-    }));
+      })).then((() => deck));
 }
