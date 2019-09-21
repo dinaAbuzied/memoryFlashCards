@@ -46,8 +46,23 @@ export function fetchData () {
 
 export function AddDeckToStorage (title) {
     const id = generateRandomID();
-    const deck = {title: title, id: id, cards: []};
+    const deck = {title, id, cards: []};
     return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
         [id]: deck
       })).then((() => deck));
+}
+
+export function AddCardToStorage (deckID, question, answer) {
+    const id = generateRandomID();
+    const card = {id, deckID, question, answer};
+    return AsyncStorage.mergeItem(CARDS_STORAGE_KEY, JSON.stringify({
+        [id]: card
+      })).then(() => AsyncStorage.getItem(DECKS_STORAGE_KEY))
+      .then(result => {
+          const decks = JSON.parse(result);
+          decks[deckID].cards.push(id);
+          return AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(decks))
+      }).then(() => {
+          return {deckID, card};
+        });
 }

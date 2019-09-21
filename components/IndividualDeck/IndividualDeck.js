@@ -4,8 +4,13 @@ import { Text, View, TouchableOpacity } from 'react-native';
 import styles from './IndividualDeckStyle';
 
 class IndividualDeck extends Component {
+    addCard = (deckID) => {
+        const {navigation} = this.props;
+        navigation.navigate('NewCard', { deckID });
+    }
     render() {
-        const deck = this.props.navigation.getParam('deck');
+        const { decks, navigation } = this.props;
+        const deck = decks[navigation.getParam('id')];
         return (
             <View style={styles.container}>
                 <View style={styles.titleContainer}>
@@ -13,7 +18,7 @@ class IndividualDeck extends Component {
                     <Text style={styles.cardsNum}>{deck.cards.length} Cards</Text>
                 </View>
                 <View style={styles.buttonsContainer}>
-                    <TouchableOpacity style={[styles.deckButton, styles.addCard]}>
+                    <TouchableOpacity onPress={() => this.addCard(deck.id)} style={[styles.deckButton, styles.addCard]}>
                         <Text style={[styles.buttonTitle, styles.addCardTitle]}>Add Card</Text>
                     </TouchableOpacity>
                     {
@@ -29,4 +34,10 @@ class IndividualDeck extends Component {
     }
 }
 
-export default connect()(IndividualDeck);
+const mapStateToProps = ({ decks }) => {
+    return {
+        decks
+    }
+}
+
+export default connect(mapStateToProps)(IndividualDeck);

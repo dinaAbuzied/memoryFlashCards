@@ -14,7 +14,7 @@ const decks = (state = {}, action) => {
                 ...state,
                 [action.deckID]: {
                     ...state[action.deckID],
-                    cards: [...state[action.deckID].cards, cardID]
+                    cards: [...state[action.deckID].cards, action.cardID]
                 }
             };
         default:

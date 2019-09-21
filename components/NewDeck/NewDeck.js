@@ -19,7 +19,7 @@ class NewDeck extends Component {
     const { dispatch, navigation } = this.props;
     const { deckTitle } = this.state;
     dispatch(handleAddDeck(deckTitle)).then((deck) => {
-      navigation.navigate('IndividualDeck', { deck })
+      navigation.navigate('IndividualDeck', { title: deck.title, id:deck.id })
     });
   }
   render() {

@@ -17,7 +17,7 @@ function Decks ({ decks, navigation }) {
             <ScrollView style={styles.container}>
                 {
                     decksArr.map((deck) => (
-                        <TouchableOpacity onPress={() => navigation.navigate('IndividualDeck', { deck })} key={deck.id} style={styles.deck} >
+                        <TouchableOpacity onPress={() => navigation.navigate('IndividualDeck', { title: deck.title, id:deck.id })} key={deck.id} style={styles.deck} >
                             <Text style={styles.title}>{deck.title}</Text>
                             <Text style={styles.cardsNum}>{deck.cards.length} Cards</Text>
                         </TouchableOpacity>

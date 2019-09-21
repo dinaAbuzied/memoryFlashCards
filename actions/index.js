@@ -1,6 +1,6 @@
-import { fetchData, AddDeckToStorage } from '../utils/api.js';
-import { recieveDecks, addDeck } from './decks.js';
-import { getCards } from './cards.js';
+import { fetchData, AddDeckToStorage, AddCardToStorage } from '../utils/api.js';
+import { recieveDecks, addDeck, addCardToDeck } from './decks.js';
+import { getCards, addCard } from './cards.js';
 
 export const handleFetchingData = () => {
     return (dispatch) => {
@@ -16,6 +16,15 @@ export const handleAddDeck = (title) => {
         return AddDeckToStorage(title).then((deck) => {
             dispatch(addDeck(deck));
             return deck;
+        });
+    }
+}
+
+export const handleAddCard = (deckID, question, answer) => {
+    return (dispatch) => {
+        return AddCardToStorage(deckID, question, answer).then(({deckID, card}) => {
+            dispatch(addCard(card));
+            dispatch(addCardToDeck(card.id, deckID));
         });
     }
 }
