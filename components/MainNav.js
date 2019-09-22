@@ -3,7 +3,8 @@ import { createAppContainer } from 'react-navigation';
 import Tabs from './TabsNav';
 import IndividualDeck from './IndividualDeck/IndividualDeck';
 import NewCard from './NewCard/NewCard';
-import { white, red, green, blue } from '../utils/colors';
+import Quiz from './Quiz/Quiz';
+import { white, blue } from '../utils/colors';
 
 const MainNavigator = createStackNavigator({
     Home: {
@@ -26,6 +27,16 @@ const MainNavigator = createStackNavigator({
       screen: NewCard,
       navigationOptions: {
         headerTitle: 'Add Card',
+        headerTintColor: white,
+        headerStyle: {
+          backgroundColor: blue,
+        }
+      }
+    },
+    Quiz: {
+      screen: Quiz,
+      navigationOptions: {
+        headerTitle: 'Quiz',
         headerTintColor: white,
         headerStyle: {
           backgroundColor: blue,

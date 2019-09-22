@@ -8,6 +8,10 @@ class IndividualDeck extends Component {
         const {navigation} = this.props;
         navigation.navigate('NewCard', { deckID });
     }
+    startQuiz = (deckID) => {
+        const {navigation} = this.props;
+        navigation.navigate('Quiz', { deckID });
+    }
     render() {
         const { decks, navigation } = this.props;
         const deck = decks[navigation.getParam('id')];
@@ -23,7 +27,7 @@ class IndividualDeck extends Component {
                     </TouchableOpacity>
                     {
                         deck.cards.length > 0
-                            ? (<TouchableOpacity style={[styles.deckButton, styles.startQuiz]}>
+                            ? (<TouchableOpacity onPress={() => this.startQuiz(deck.id)} style={[styles.deckButton, styles.startQuiz]}>
                                     <Text style={[styles.buttonTitle, styles.startQuizTitle]}>Start Quiz</Text>
                                 </TouchableOpacity>)
                             : null
