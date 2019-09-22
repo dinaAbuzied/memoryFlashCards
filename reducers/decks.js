@@ -1,5 +1,10 @@
 import { RECIEVE_DECKS, ADD_DECK, ADD_CARD_TO_DECK } from "../actions/decks";
 
+/**
+ * @description handles saving the existing decks to the store 
+ *              and adding new decks to the store and adding the 
+ *              id of new cards to the containing deck
+ */
 const decks = (state = {}, action) => {
     switch (action.type) {
         case RECIEVE_DECKS:
