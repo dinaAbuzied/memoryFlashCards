@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
 import { NavigationActions } from 'react-navigation';
+import { setLocalNotification, clearLocalNotification } from '../../utils/api';
 import QA from './QA';
 import Result from './Result';
 import { white } from '../../utils/colors';
@@ -27,10 +28,17 @@ class Quiz extends Component {
     }
     answerCorrect = () => {
         const { correctAns } = this.state;
+        const { decks, navigation } = this.props;
+        const cards = decks[navigation.getParam('deckID')].cards;
         this.setState({
             correctAns: correctAns + 1
         })
-        this.nextQue()
+        this.nextQue();
+
+        if (currentQue >= cards.length) {
+            clearLocalNotification()
+                .then(setLocalNotification)
+        }
     }
     resetQue = () => {
         this.setState({
@@ -51,17 +59,17 @@ class Quiz extends Component {
             <View style={styles.container}>
                 {
                     currentQue < cards.length
-                    ? <QA 
-                        id={cards[currentQue]} 
-                        current={currentQue + 1} 
-                        total={cards.length}
-                        correctAns={this.answerCorrect}
-                        incorrectAns={this.nextQue} />
-                    : <Result
-                        totalAnswers={cards.length}
-                        correctAnswers={correctAns}
-                        resetQue={this.resetQue}
-                        backToDeck={this.backToDeck} />
+                        ? <QA
+                            id={cards[currentQue]}
+                            current={currentQue + 1}
+                            total={cards.length}
+                            correctAns={this.answerCorrect}
+                            incorrectAns={this.nextQue} />
+                        : <Result
+                            totalAnswers={cards.length}
+                            correctAnswers={correctAns}
+                            resetQue={this.resetQue}
+                            backToDeck={this.backToDeck} />
                 }
             </View>
         );

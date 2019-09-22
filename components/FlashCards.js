@@ -6,6 +6,7 @@ import MainNav from './MainNav';
 import Constants from 'expo-constants';
 import { blue } from '../utils/colors';
 import { AppLoading } from 'expo';
+import { setLocalNotification } from '../utils/api'
 
 function CardsStatusBar ({backgroundColor, ...props}) {
   return (
@@ -23,6 +24,7 @@ class FlashCards extends Component {
     const { dispatch } = this.props;
     dispatch(handleFetchingData())
     .then(() => this.setState(() => ({ready: true})));
+    setLocalNotification();
   }
   render() {
     const { ready } = this.state;
